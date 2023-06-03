@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply from: 'dependencies.gradle'
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    plugins.withType(JavaPlugin) {
+        dependencies {
+            implementation global_libs.annotations
+            testImplementation global_libs.junit
+        }
+    }
+}
+
+tasks.named('wrapper') {
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+// gradlew allDeps 
+subprojects {
+    task allDeps(type: DependencyReportTask) {}
+}
